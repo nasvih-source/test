@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArabDreams Chat</title>
+    <title>ArabDreams AI Assistant</title>
+    <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
+     <style>
+       * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -36,8 +37,8 @@
 
         .container {
             width: 100%;
-            max-width: 420px;
-            height: 80vh; /* 80% height for desktop */
+            max-width: 1020px;
+            height: 90vh;
             background: var(--white);
             border-radius: 16px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
@@ -49,13 +50,11 @@
 
         .header {
             background: var(--white);
-            padding: 16px 20px;
+            padding: 20px;
             border-bottom: 1px solid var(--gray-light);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-shrink: 0;
-            z-index: 100;
         }
 
         .logo-section {
@@ -65,14 +64,13 @@
         }
 
         .logo {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: var(--gold-light);
         }
 
         .logo img {
@@ -82,7 +80,7 @@
         }
 
         .header-info h1 {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
             color: var(--black);
             letter-spacing: -0.3px;
@@ -90,7 +88,7 @@
         }
 
         .header-info p {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--gray);
             font-weight: 400;
         }
@@ -113,22 +111,14 @@
         }
 
         .status-text {
-            font-size: 10px;
+            font-size: 11px;
             color: var(--gold);
             font-weight: 500;
         }
 
-        .messages-container {
-            flex: 1;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
         .messages {
             flex: 1;
-            padding: 16px 20px;
+            padding: 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -151,7 +141,7 @@
         }
 
         .bubble {
-            max-width: 85%;
+            max-width: 80%;
             padding: 12px 16px;
             border-radius: 18px;
             font-size: 14px;
@@ -308,11 +298,9 @@
         }
 
         .input-area {
-            padding: 16px 20px;
+            padding: 16px 20px 20px;
             background: var(--white);
             border-top: 1px solid var(--gray-light);
-            flex-shrink: 0;
-            z-index: 100;
         }
 
         .input-box {
@@ -390,74 +378,7 @@
             background: var(--gold-dark);
         }
 
-        /* Mobile-specific styles */
         @media (max-width: 500px) {
-            body {
-                padding: 0;
-                display: block;
-                height: 100vh;
-                overflow: hidden;
-            }
-            
-            .container {
-                height: 100vh;
-                max-width: 100%;
-                border-radius: 0;
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-            }
-            
-            .header {
-                position: sticky;
-                top: 0;
-                padding: 12px 16px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            }
-            
-            .messages {
-                padding: 12px 16px;
-                flex: 1;
-                overflow-y: auto;
-                padding-bottom: 20px;
-            }
-            
-            .input-area {
-                position: sticky;
-                bottom: 0;
-                padding: 12px 16px;
-                box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
-            }
-            
-            .bubble {
-                max-width: 90%;
-            }
-            
-            .logo {
-                width: 32px;
-                height: 32px;
-            }
-            
-            .header-info h1 {
-                font-size: 14px;
-            }
-            
-            .header-info p {
-                font-size: 10px;
-            }
-            
-            .status {
-                padding: 3px 8px;
-            }
-            
-            .status-text {
-                font-size: 9px;
-            }
-        }
-
-          @media (max-width: 500px) {
             .container {
                 height: 100vh;
                 max-width: 100%;
@@ -471,14 +392,13 @@
             }
         }
     </style>
-    </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <div class="logo-section">
                 <div class="logo">
-                    <img src="https://via.placeholder.com/40" alt="ArabDreams Logo">
+                    <img src="logo.png" alt="ArabDreams Logo">
                 </div>
                 <div class="header-info">
                     <h1>ARAB DREAMS</h1>
@@ -491,48 +411,24 @@
             </div>
         </div>
 
-        <div class="messages-container">
-            <div class="messages" id="msgs">
-                <div class="msg bot">
-                    <div>
-                        <div class="welcome">
-                            <h3>
-                                <span class="welcome-icon">AD</span>
-                                Welcome to ArabDreams
-                            </h3>
-                            <p>Your premier partner for business success in Saudi Arabia. We specialize in helping international and local businesses establish with <strong>100% foreign ownership</strong> options.</p>
-                        </div>
-                        <div class="bubble">
-                            How can I assist you with your Saudi Arabian business goals today?
-                        </div>
-                        <div class="chips">
-                            <div class="chip" onclick="send('What services do you offer?')">Our Services</div>
-                            <div class="chip" onclick="send('Business setup process?')">Setup Process</div>
-                            <div class="chip" onclick="send('Tell me about visas')">Visa Services</div>
-                            <div class="chip" onclick="send('Why Saudi Arabia?')">Why KSA</div>
-                        </div>
+        <div class="messages" id="msgs">
+            <div class="msg bot">
+                <div>
+                    <div class="welcome">
+                        <h3>
+                            <span class="welcome-icon">AD</span>
+                            Welcome to ArabDreams
+                        </h3>
+                        <p>Your premier partner for business success in Saudi Arabia. We specialize in helping international and local businesses establish with <strong>100% foreign ownership</strong> options.</p>
                     </div>
-                </div>
-                <div class="msg user">
                     <div class="bubble">
-                        I'm interested in setting up a business in Saudi Arabia.
+                        How can I assist you with your Saudi Arabian business goals today?
                     </div>
-                </div>
-                <div class="msg bot">
-                    <div class="bubble">
-                        Excellent choice! Saudi Arabia offers tremendous opportunities for business growth. Our team can guide you through the entire setup process, from company registration to licensing and visa processing.
-                    </div>
-                </div>
-                <div class="msg user">
-                    <div class="bubble">
-                        What are the main requirements?
-                    </div>
-                </div>
-                <div class="msg bot">
-                    <div class="typing">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
+                    <div class="chips">
+                        <div class="chip" onclick="send('What services do you offer?')">Our Services</div>
+                        <div class="chip" onclick="send('Business setup process?')">Setup Process</div>
+                        <div class="chip" onclick="send('Tell me about visas')">Visa Services</div>
+                        <div class="chip" onclick="send('Why Saudi Arabia?')">Why KSA</div>
                     </div>
                 </div>
             </div>
@@ -553,79 +449,493 @@
         </div>
     </div>
 
-    <script>
-        // Simple chat functionality for demonstration
-        function send(message) {
-            const messagesDiv = document.getElementById('msgs');
-            
-            // Add user message
-            const userMsg = document.createElement('div');
-            userMsg.className = 'msg user';
-            userMsg.innerHTML = `<div class="bubble">${message}</div>`;
-            messagesDiv.appendChild(userMsg);
-            
-            // Simulate bot response after delay
-            setTimeout(() => {
-                // Remove typing indicator if exists
-                const typingIndicator = document.querySelector('.typing');
-                if (typingIndicator) {
-                    typingIndicator.parentElement.remove();
-                }
-                
-                // Add bot response
-                const botMsg = document.createElement('div');
-                botMsg.className = 'msg bot';
-                botMsg.innerHTML = `<div class="bubble">Thank you for your interest in "${message}". Our team will get back to you with detailed information shortly.</div>`;
-                messagesDiv.appendChild(botMsg);
-                
-                // Scroll to bottom
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            }, 1500);
-            
-            // Add typing indicator
-            const typingMsg = document.createElement('div');
-            typingMsg.className = 'msg bot';
-            typingMsg.innerHTML = `
-                <div class="typing">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                </div>
-            `;
-            messagesDiv.appendChild(typingMsg);
-            
-            // Scroll to bottom
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    
+
+
+  <script>
+    // Storage key for chat history
+    const STORAGE_KEY = 'arabdreams_chat_history';
+    
+    // Conversation history
+    let conversationHistory = [];
+
+    const msgs = document.getElementById('msgs');
+    const input = document.getElementById('input');
+    const btn = document.getElementById('btn');
+
+    // Contact info by language
+    const CONTACTS = {
+        en: `\n\n📞 **Contact Our Consultants for Pricing & Personalized Service:**\n+966 53 352 6262 | +966 53 514 6644\n📍 **Global Offices:** KSA, UAE, UK, India, China\n\n⚠️ *AI-Generated Response: For accurate pricing and detailed consultation, please contact our experts directly.*`,
+        ar: `\n\n📞 **اتصل بمستشارينا للأسعار والخدمة الشخصية:**\n‎+966 53 352 6262 | +966 53 514 6644\n📍 **مكاتب عالمية:** السعودية، الإمارات، المملكة المتحدة، الهند، الصين\n\n⚠️ *استجابة AI: للحصول على أسعار دقيقة واستشارة مفصلة، يرجى الاتصال بخبرائنا مباشرة.*`,
+        ur: `\n\n📞 **قیمتوں اور ذاتی خدمات کے لیے ہمارے مشیران سے رابطہ کریں:**\n‎+966 53 352 6262 | +966 53 514 6644\n📍 **عالمی دفاتر:** سعودی عرب، متحدہ عرب امارات، برطانیہ، ہندوستان، چین\n\n⚠️ *AI جواب: درست قیمتوں اور تفصیلی مشاورت کے لیے براہ کرم ہمارے ماہرین سے براہ راست رابطہ کریں۔*`,
+        ml: `\n\n📞 **വിലനിർണ്ണയത്തിനും വ്യക്തിഗത സേവനത്തിനും ഞങ്ങളുടെ കൺസൾട്ടന്റുമാരെ ബന്ധപ്പെടുക:**\n+966 53 352 6262 | +966 53 514 6644\n📍 **ആഗോള ഓഫീസുകൾ:** സൗദി, UAE, UK, ഇന്ത്യ, ചൈന\n\n⚠️ *AI പ്രതികരണം: കൃത്യമായ വിലനിർണ്ണയത്തിനും വിശദമായ കൺസൾട്ടേഷനുമായി ദയവായി ഞങ്ങളുടെ വിദഗ്ധരെ നേരിട്ട് ബന്ധപ്പെടുക.*`
+    };
+
+    // Language detection
+    function detectLanguage(text) {
+        const malayalam = /[\u0D00-\u0D7F]/;
+        const arabic = /[\u0600-\u06FF\u0750-\u077F]/;
+        
+        if (malayalam.test(text)) return 'ml';
+        if (arabic.test(text)) {
+            if (text.includes('ہے') || text.includes('ہیں') || text.includes('کیا')) return 'ur';
+            return 'ar';
+        }
+        return 'en';
+    }
+
+    function format(text) {
+        text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        text = text.replace(/^[•\-\*]\s+(.+)$/gm, '<li>$1</li>');
+        text = text.replace(/(<li>.*?<\/li>\n?)+/g, '<ul>$&</ul>');
+        text = text.replace(/^(\d+)\.\s+(.+)$/gm, '<li>$2</li>');
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = text;
+        const lists = tempDiv.querySelectorAll('ul');
+        lists.forEach(ul => {
+            if (ul.previousElementSibling?.tagName === 'UL') return;
+            const firstLi = ul.querySelector('li');
+            if (firstLi && /^\d+/.test(firstLi.textContent.trim())) {
+                const ol = document.createElement('ol');
+                ol.innerHTML = ul.innerHTML;
+                ul.replaceWith(ol);
+            }
+        });
+        text = tempDiv.innerHTML;
+        text = text.replace(/\n\n/g, '<br><br>');
+        text = text.replace(/\n/g, '<br>');
+        return text;
+    }
+
+    function add(text, type) {
+        const div = document.createElement('div');
+        div.className = `msg ${type}`;
+        
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        
+        if (type === 'bot') {
+            bubble.innerHTML = format(text);
+        } else {
+            bubble.textContent = text;
         }
         
-        // Add event listener to send button
-        document.getElementById('btn').addEventListener('click', function() {
-            const input = document.getElementById('input');
-            if (input.value.trim() !== '') {
-                send(input.value);
-                input.value = '';
-            }
-        });
+        div.appendChild(bubble);
+        msgs.appendChild(div);
+        msgs.scrollTop = msgs.scrollHeight;
+
+        // Save to history
+        if (type === 'user' || type === 'bot') {
+            saveToHistory(text, type);
+        }
+    }
+
+    function typing(show) {
+        const existing = document.getElementById('typing');
+        if (existing) existing.remove();
         
-        // Add event listener for Enter key
-        document.getElementById('input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.getElementById('btn').click();
+        if (show) {
+            const div = document.createElement('div');
+            div.className = 'msg bot';
+            div.id = 'typing';
+            div.innerHTML = '<div class="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+            msgs.appendChild(div);
+            msgs.scrollTop = msgs.scrollHeight;
+        }
+    }
+
+    // Save chat to localStorage
+    function saveToHistory(message, type) {
+        conversationHistory.push({ message, type, timestamp: Date.now() });
+        if (conversationHistory.length > 50) {
+            conversationHistory = conversationHistory.slice(-50);
+        }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(conversationHistory));
+    }
+
+    // Load chat history
+    function loadHistory() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+            try {
+                conversationHistory = JSON.parse(saved);
+            } catch (e) {
+                console.error('Error loading history:', e);
             }
-        });
-        
-        // Add event listeners to chips
-        document.querySelectorAll('.chip').forEach(chip => {
-            chip.addEventListener('click', function() {
-                send(this.textContent);
+        }
+    }
+
+    // Enhanced response templates
+    const RESPONSE_TEMPLATES = {
+        en: {
+            welcome: `🏢 **Welcome to ArabDreams - Your Premier Business Partner in Saudi Arabia!**
+
+**About Us:**
+• 10+ Years of Experience | 100+ Professionals | 3000+ Satisfied Clients
+• ISO Certified | International Accreditation
+
+**Core Services:**
+• Business Setup & Company Formation (100% Foreign Ownership)
+• All Business Licenses & Regulatory Compliance
+• PRO & Visa Services
+• Accounting, Tax & Audit Solutions
+• Market Entry Advisory & Corporate Legal Assistance
+
+**Vision 2030 Opportunities:**
+• NEOM, THE LINE, OXAGON, TROJENA Mega Projects
+• Economic diversification & simplified regulations
+• Strategic gateway to Asia, Africa, and Europe
+
+**📍 Our Offices:** Jeddah, Riyadh, Dammam, Buraidah, Dubai, UK, India, China`,
+
+            pricing: `💼 **Business Setup Investment**
+
+We provide customized pricing based on your specific business requirements. Our consultants will analyze:
+
+• Your business activity and license type
+• Office space requirements
+• Number of visas needed
+• Specific regulatory compliance needs
+
+**📞 Contact our consultants for detailed, accurate pricing tailored to your business:**`,
+
+            services: `🛠️ **Our Comprehensive Services**
+
+**Business Setup:**
+• Company formation with 100% foreign ownership
+• All types of business licenses
+• Complete documentation support
+
+**Business Support:**
+• PRO & GRO services
+• Visa and immigration processing
+• Government liaison services
+
+**Financial Services:**
+• Accounting & bookkeeping
+• Tax compliance & VAT registration
+• Audit & financial reporting
+
+**Advisory Services:**
+• Market entry strategy
+• Legal & compliance advisory
+• Business restructuring`,
+
+            contact: `📞 **Global Contact Network**
+
+**Saudi Arabia:**
+Jeddah: +966 53 514 6644
+Riyadh: +966 53 773 7800
+Dammam: +966 53 352 3131
+Buraidah: +966 55 019 2663
+
+**International:**
+UAE: +971 58 289 9477
+UK: +44 791 774 8010
+India: +91 99955 76333
+
+📧 **Email:** info@arabdreams.com`
+        },
+        ar: {
+            welcome: `🏢 **مرحباً بكم في ArabDreams - شريككم الأول للأعمال في السعودية!**
+
+**معلومات عنا:**
+• 10+ سنوات خبرة | 100+ محترف | 3000+ عميل راضي
+• معتمد بالأيزو | اعتماد دولي
+
+**خدماتنا الأساسية:**
+• تأسيس الأعمال وتكوين الشركات (ملكية أجنبية 100٪)
+• جميع التراخيص التجارية والامتثال التنظيمي
+• خدمات PRO والتأشيرات
+• الحلول المحاسبية والضريبية والتدقيق
+• الاستشارات الإستراتيجية والدعم القانوني`,
+
+            pricing: `💼 **استثمار تأسيس الأعمال**
+
+نوفر أسعاراً مخصصة بناءً على متطلبات عملك المحددة. سيحلل مستشارونا:
+
+• نشاط عملك ونوع الترخيص
+• متطلبات مساحة المكتب
+• عدد التأشيرات المطلوبة
+• احتياجات الامتثال التنظيمي الخاصة
+
+**📞 اتصل بمستشارينا للحصول على أسعار مفصلة ودقيقة مخصصة لعملك:**`,
+
+            services: `🛠️ **خدماتنا الشاملة**
+
+**تأسيس الأعمال:**
+• تكوين الشركات بملكية أجنبية 100٪
+• جميع أنواع التراخيص التجارية
+• دعم الوثائق الكامل
+
+**دعم الأعمال:**
+• خدمات PRO وGRO
+• معالجة التأشيرات والهجرة
+• خدمات الاتصال الحكومي`,
+
+            contact: `📞 **شبكة الاتصال العالمية**
+
+**السعودية:**
+جدة: +966 53 514 6644
+الرياض: +966 53 773 7800
+الدمام: +966 53 352 3131
+بريدة: +966 55 019 2663
+
+**الدولية:**
+الإمارات: +971 58 289 9477
+بريطانيا: +44 791 774 8010
+الهند: +91 99955 76333
+
+📧 **البريد:** info@arabdreams.com`
+        },
+        ur: {
+            welcome: `🏢 **ArabDreams میں خوش آمدید - سعودی عرب میں آپ کا اولین کاروباری پارٹنر!**
+
+**ہمارے بارے میں:**
+• 10+ سال کا تجربہ | 100+ پیشہ ور | 3000+ مطمئن کلائنٹ
+• ISO Certified | بین الاقوامی accredition
+
+**بنیادی خدمات:**
+• کاروبار کا قیام اور کمپنی کی تشکیل (100% غیر ملکی ملکیت)
+• تمام کاروباری لائسنسز اور ریگولیٹری کمپلائنس
+• PRO اور ویزا سروسز
+• اکاؤنٹنگ، ٹیکس اور آڈٹ سولیوشنز`,
+
+            pricing: `💼 **کاروبار قائم کرنے میں سرمایہ کاری**
+
+ہم آپ کی مخصوص کاروباری ضروریات کی بنیاد پر حسب ضرورت قیمتیں فراہم کرتے ہیں۔ ہمارے مشیران تجزیہ کریں گے:
+
+• آپ کی کاروباری سرگرمی اور لائسنس کی قسم
+• دفتر کی جگہ کی ضروریات
+• درکار ویزا کی تعداد
+• مخصوص ریگولیٹری کمپلائنس ضروریات
+
+**📞 اپنے کاروبار کے لیے حسب ضرورت تفصیلی، درست قیمتوں کے لیے ہمارے مشیران سے رابطہ کریں:**`,
+
+            services: `🛠️ **ہماری جامع خدمات**
+
+**کاروبار کا قیام:**
+• 100% غیر ملکی ملکیت کے ساتھ کمپنی کی تشکیل
+• کاروباری لائسنس کی تمام اقسام
+• دستاویزات کی مکمل سپورٹ`,
+
+            contact: `📞 **گلوبل رابطہ نیٹ ورک**
+
+**سعودی عرب:**
+جدہ: +966 53 514 6644
+ریاض: +966 53 773 7800
+دمام: +966 53 352 3131
+بوریدہ: +966 55 019 2663
+
+**بین الاقوامی:**
+متحدہ عرب امارات: +971 58 289 9477
+برطانیہ: +44 791 774 8010
+ہندوستان: +91 99955 76333
+
+📧 **ای میل:** info@arabdreams.com`
+        },
+        ml: {
+            welcome: `🏢 **ArabDreams-ലേക്ക് സ്വാഗതം - സൗദി അറേബിയയിലെ നിങ്ങളുടെ പ്രമുഖ ബിസിനസ്സ് പങ്കാളി!**
+
+**ഞങ്ങളെക്കുറിച്ച്:**
+• 10+ വർഷം പരിചയം | 100+ പ്രൊഫഷണലുകൾ | 3000+ തൃപ്തരായ ക്ലയന്റുകൾ
+• ISO Certified | അന്തർദേശീയ അംഗീകാരം
+
+**മുഖ്യ സേവനങ്ങൾ:**
+• ബിസിനസ്സ് സജ്ജീകരണവും കമ്പനി രൂപീകരണവും (100% വിദേശ ഉടമസ്ഥത)
+• എല്ലാ ബിസിനസ്സ് ലൈസൻസുകളും നിയന്ത്രണ അനുസൃതത
+• PRO, വിസ സേവനങ്ങൾ
+• അക്കൗണ്ടിംഗ്, നികുതി, ഓഡിറ്റ് പരിഹാരങ്ങൾ`,
+
+            pricing: `💼 **ബിസിനസ്സ് സജ്ജീകരണ നിക്ഷേപം**
+
+നിങ്ങളുടെ നിർദ്ദിഷ്ട ബിസിനസ്സ് ആവശ്യങ്ങളെ അടിസ്ഥാനമാക്കി ഞങ്ങൾ ഇഷ്ടാനുസൃത വിലനിർദ്ദേശം നൽകുന്നു. ഞങ്ങളുടെ കൺസൾട്ടന്റുമാർ വിശകലനം ചെയ്യും:
+
+• നിങ്ങളുടെ ബിസിനസ്സ് പ്രവർത്തനവും ലൈസൻസ് തരവും
+• ഓഫീസ് സ്ഥല ആവശ്യങ്ങൾ
+• ആവശ്യമായ വിസകളുടെ എണ്ണം
+• നിർദ്ദിഷ്ട നിയന്ത്രണ അനുസൃത ആവശ്യങ്ങൾ
+
+**📞 നിങ്ങളുടെ ബിസിനസ്സിനായി ഇഷ്ടാനുസൃതമായ വിശദമായ, കൃത്യമായ വിലനിർണ്ണയത്തിന് ഞങ്ങളുടെ കൺസൾട്ടന്റുമാരെ ബന്ധപ്പെടുക:**`,
+
+            services: `🛠️ **ഞങ്ങളുടെ സമഗ്ര സേവനങ്ങൾ**
+
+**ബിസിനസ്സ് സജ്ജീകരണം:**
+• 100% വിദേശ ഉടമസ്ഥതയോടെ കമ്പനി രൂപീകരണം
+• എല്ലാ തരത്തിലുള്ള ബിസിനസ്സ് ലൈസൻസുകളും
+• സമ്പൂർണ്ണ ഡോക്യുമെന്റേഷൻ സപ്പോർട്ട്`,
+
+            contact: `📞 **ആഗോള കോൺടാക്റ്റ് നെറ്റ്വർക്ക്**
+
+**സൗദി അറേബിയ:**
+ജിദ്ദ: +966 53 514 6644
+റിയാദ്: +966 53 773 7800
+ദമ്മം: +966 53 352 3131
+ബുറൈദ: +966 55 019 2663
+
+**അന്തർദേശീയ:**
+UAE: +971 58 289 9477
+UK: +44 791 774 8010
+ഇന്ത്യ: +91 99955 76333
+
+📧 **ഇമെയിൽ:** info@arabdreams.com`
+        }
+    };
+
+    async function send(text) {
+        if (!text) text = input.value.trim();
+        if (!text) return;
+
+        input.value = '';
+        input.disabled = true;
+        btn.disabled = true;
+
+        add(text, 'user');
+        typing(true);
+
+        const lang = detectLanguage(text);
+        const contactInfo = CONTACTS[lang];
+        const templates = RESPONSE_TEMPLATES[lang] || RESPONSE_TEMPLATES.en;
+
+        try {
+            // Check for pricing-related queries
+            const pricingKeywords = {
+                en: ['cost', 'price', 'fee', 'how much', 'investment', 'charges', 'pricing'],
+                ar: ['سعر', 'تكلفة', 'ثمن', 'كم', 'رسوم', 'تكاليف'],
+                ur: ['قیمت', 'لاگت', 'کم', 'خرچ', 'فیس'],
+                ml: ['വില', 'കോസ്റ്റ്', 'പ്രൈസ്', 'എത്ര', 'ചാർജസ്']
+            };
+
+            const lowerText = text.toLowerCase();
+            const hasPricingQuery = pricingKeywords[lang]?.some(keyword => 
+                lowerText.includes(keyword)
+            ) || pricingKeywords.en.some(keyword => lowerText.includes(keyword));
+
+            if (hasPricingQuery) {
+                setTimeout(() => {
+                    typing(false);
+                    let reply = templates.pricing + contactInfo;
+                    add(reply, 'bot');
+                }, 1000);
+                return;
+            }
+
+            // Check for service queries
+            const serviceKeywords = {
+                en: ['service', 'what you do', 'offer', 'provide', 'help with'],
+                ar: ['خدمة', 'خدمات', 'ماذا تقدم', 'ماذا تفعل'],
+                ur: ['سروس', 'خدمت', 'کیا پیشکش', 'کیا کرتے'],
+                ml: ['സേവനം', 'സർവീസ്', 'എന്താണ് നൽകുന്നത്', 'എന്താണ് ചെയ്യുന്നത്']
+            };
+
+            const hasServiceQuery = serviceKeywords[lang]?.some(keyword => 
+                lowerText.includes(keyword)
+            ) || serviceKeywords.en.some(keyword => lowerText.includes(keyword));
+
+            if (hasServiceQuery) {
+                setTimeout(() => {
+                    typing(false);
+                    let reply = templates.services + contactInfo;
+                    add(reply, 'bot');
+                }, 1000);
+                return;
+            }
+
+            // Check for contact queries
+            const contactKeywords = {
+                en: ['contact', 'phone', 'number', 'email', 'address', 'office', 'location'],
+                ar: ['اتصل', 'هاتف', 'رقم', 'بريد', 'عنوان', 'مكتب'],
+                ur: ['رابطہ', 'فون', 'نمبر', 'ای میل', 'پتہ', 'دفتر'],
+                ml: ['കോൺടാക്റ്റ്', 'ഫോൺ', 'നമ്പർ', 'ഇമെയിൽ', 'വിലാസം', 'ഓഫീസ്']
+            };
+
+            const hasContactQuery = contactKeywords[lang]?.some(keyword => 
+                lowerText.includes(keyword)
+            ) || contactKeywords.en.some(keyword => lowerText.includes(keyword));
+
+            if (hasContactQuery) {
+                setTimeout(() => {
+                    typing(false);
+                    let reply = templates.contact + contactInfo;
+                    add(reply, 'bot');
+                }, 1000);
+                return;
+            }
+
+            // General query - call Netlify function
+            const response = await fetch('/.netlify/functions/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    message: text,
+                    context: "ArabDreams Business Consultancy - Never reveal pricing. Always direct to contact consultants for pricing. Provide general information about business setup in Saudi Arabia, Vision 2030, services offered, but never specific costs."
+                })
             });
-        });
+
+            if (!response.ok) {
+                throw new Error(`Network error: ${response.status}`);
+            }
+
+            const data = await response.json();
+            
+            setTimeout(() => {
+                typing(false);
+                let reply = data.choices?.[0]?.message?.content || templates.welcome;
+                // Ensure pricing is never mentioned
+                if (reply.toLowerCase().includes('price') || reply.toLowerCase().includes('cost') || 
+                    reply.toLowerCase().includes('$') || reply.toLowerCase().includes('fee')) {
+                    reply = templates.welcome;
+                }
+                reply += contactInfo;
+                add(reply, 'bot');
+            }, 1000);
+
+        } catch (err) {
+            console.error('Error:', err);
+            setTimeout(() => {
+                typing(false);
+                let reply = templates.welcome + contactInfo;
+                add(reply, 'bot');
+            }, 1000);
+        } finally {
+            input.disabled = false;
+            btn.disabled = false;
+            input.focus();
+        }
+    }
+
+    // Event listeners
+    btn.onclick = () => send();
+    input.onkeypress = (e) => {
+        if (e.key === 'Enter') send();
+    };
+
+    input.oninput = () => {
+        btn.style.opacity = input.value.trim() ? '1' : '0.4';
+    };
+
+    // Initialize on load
+    window.onload = () => {
+        loadHistory();
+        input.focus();
+        btn.style.opacity = '0.4';
         
-        // Scroll to bottom on page load
-        window.addEventListener('load', function() {
-            const messagesDiv = document.getElementById('msgs');
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        });
-    </script>
-</body>
-</html>
+        // Show welcome message if no history
+        if (conversationHistory.length === 0) {
+            const lang = 'en'; // Default language
+            const templates = RESPONSE_TEMPLATES[lang];
+            const contactInfo = CONTACTS[lang];
+            setTimeout(() => {
+                add(templates.welcome + contactInfo, 'bot');
+            }, 500);
+        }
+    };
+
+    // Global function for chip buttons
+    window.send = send;
+</script>
+
+
+
