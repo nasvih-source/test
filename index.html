@@ -457,34 +457,20 @@
             }
         }
 
-        /* Small mobile devices */
-        @media (max-width: 350px) {
-            .header {
-                padding: 10px 12px;
+          @media (max-width: 500px) {
+            .container {
+                height: 100vh;
+                max-width: 100%;
+                border-radius: 0;
             }
-            
+            body {
+                padding: 0;
+            }
             .messages {
-                padding: 10px 12px;
-            }
-            
-            .input-area {
-                padding: 10px 12px;
-            }
-            
-            .bubble {
-                padding: 10px 14px;
-                font-size: 13px;
-            }
-            
-            .chips {
-                gap: 6px;
-            }
-            
-            .chip {
-                padding: 5px 10px;
-                font-size: 11px;
+                padding: 16px;
             }
         }
+    </style>
     </style>
 </head>
 <body>
