@@ -392,14 +392,18 @@
         overflow: hidden;
     }
     
+  @media (max-width: 500px) {
     .messages {
         padding: 16px;
         margin-bottom: 0;
         position: relative;
-        height: calc(100vh - 120px); /* Adjust based on header and input height */
         overflow-y: auto;
-        margin-top: 60px; /* Space for fixed header */
+        padding-top: 80px; /* Space for header */
+        padding-bottom: 80px; /* Space for input area */
+        height: 100vh;
+        box-sizing: border-box;
     }
+}
     
     .header {
         margin-top: 0;
