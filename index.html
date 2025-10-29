@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArabDreams Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #C9A961;
+            --gold-dark: #B08D4F;
+            --gold-light: #E8D9B0;
+            --black: #1A1A1A;
+            --gray-dark: #3A3A3A;
+            --gray: #777777;
+            --gray-light: #F0F0F0;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+            background: #f8f8f8;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            height: 80vh; /* 80% height for desktop */
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .header {
+            background: var(--white);
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+            z-index: 100;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--gold-light);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-info h1 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--black);
+            letter-spacing: -0.3px;
+            margin-bottom: 2px;
+        }
+
+        .header-info p {
+            font-size: 11px;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            background: rgba(201, 169, 97, 0.08);
+            border-radius: 10px;
+            border: 1px solid rgba(201, 169, 97, 0.2);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        .status-text {
+            font-size: 10px;
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .messages {
+            flex: 1;
+            padding: 16px 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: #FAFAFA;
+        }
+
+        .msg {
+            display: flex;
+            animation: slide 0.3s ease;
+        }
+
+        @keyframes slide {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .msg.user {
+            justify-content: flex-end;
+        }
+
+        .bubble {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.5;
+            letter-spacing: -0.1px;
+        }
+
+        .msg.bot .bubble {
+            background: var(--white);
+            color: var(--black);
+            border: 1px solid var(--gray-light);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .msg.user .bubble {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        .bubble strong {
+            font-weight: 600;
+            color: var(--gold-dark);
+        }
+
+        .msg.user .bubble strong {
+            color: var(--white);
+        }
+
+        .bubble ul {
+            margin: 8px 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .bubble li {
+            margin: 4px 0;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .bubble li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: 14px;
+            top: 0;
+        }
+
+        .bubble ol {
+            margin: 8px 0;
+            padding-left: 18px;
+        }
+
+        .bubble ol li {
+            margin: 4px 0;
+            padding-left: 6px;
+        }
+
+        .bubble ol li::before {
+            content: none;
+        }
+
+        .typing {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--white);
+            border: 1px solid var(--gray-light);
+            border-radius: 18px;
+            max-width: 70px;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite;
+        }
+
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        .welcome {
+            background: var(--white);
+            border: 1px solid var(--gray-light);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 8px;
+        }
+
+        .welcome h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .welcome-icon {
+            width: 18px;
+            height: 18px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--white);
+        }
+
+        .welcome p {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .welcome strong {
+            color: var(--gold-dark);
+            font-weight: 600;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .chip {
+            background: var(--white);
+            border: 1px solid var(--gold);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            color: var(--black);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .chip:hover {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        .input-area {
+            padding: 16px 20px;
+            background: var(--white);
+            border-top: 1px solid var(--gray-light);
+            flex-shrink: 0;
+            z-index: 100;
+        }
+
+        .input-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #FAFAFA;
+            border: 1px solid var(--gray-light);
+            border-radius: 20px;
+            padding: 4px 4px 4px 16px;
+            transition: all 0.2s ease;
+        }
+
+        .input-box:focus-within {
+            border-color: var(--gold);
+            background: var(--white);
+        }
+
+        .input-box input {
+            flex: 1;
+            border: none;
+            background: none;
+            outline: none;
+            font-size: 14px;
+            color: var(--black);
+            font-family: inherit;
+            padding: 10px 0;
+        }
+
+        .input-box input::placeholder {
+            color: var(--gray);
+        }
+
+        .send-btn {
+            width: 32px;
+            height: 32px;
+            background: var(--gold);
+            border: none;
+            border-radius: 50%;
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            background: var(--gold-dark);
+        }
+
+        .send-btn:active {
+            transform: scale(0.95);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .messages::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-dark);
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 500px) {
+            body {
+                padding: 0;
+                display: block;
+                height: 100vh;
+                overflow: hidden;
+            }
+            
+            .container {
+                height: 100vh;
+                max-width: 100%;
+                border-radius: 0;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+            
+            .header {
+                position: sticky;
+                top: 0;
+                padding: 12px 16px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            }
+            
+            .messages {
+                padding: 12px 16px;
+                flex: 1;
+                overflow-y: auto;
+                padding-bottom: 20px;
+            }
+            
+            .input-area {
+                position: sticky;
+                bottom: 0;
+                padding: 12px 16px;
+                box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+            }
+            
+            .bubble {
+                max-width: 90%;
+            }
+            
+            .logo {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .header-info h1 {
+                font-size: 14px;
+            }
+            
+            .header-info p {
+                font-size: 10px;
+            }
+            
+            .status {
+                padding: 3px 8px;
+            }
+            
+            .status-text {
+                font-size: 9px;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 350px) {
+            .header {
+                padding: 10px 12px;
+            }
+            
+            .messages {
+                padding: 10px 12px;
+            }
+            
+            .input-area {
+                padding: 10px 12px;
+            }
+            
+            .bubble {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+            
+            .chips {
+                gap: 6px;
+            }
+            
+            .chip {
+                padding: 5px 10px;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="https://via.placeholder.com/40" alt="ArabDreams Logo">
+                </div>
+                <div class="header-info">
+                    <h1>ARAB DREAMS</h1>
+                    <p>Business Consultancy</p>
+                </div>
+            </div>
+            <div class="status">
+                <div class="status-dot"></div>
+                <span class="status-text">AI Online</span>
+            </div>
+        </div>
+
+        <div class="messages-container">
+            <div class="messages" id="msgs">
+                <div class="msg bot">
+                    <div>
+                        <div class="welcome">
+                            <h3>
+                                <span class="welcome-icon">AD</span>
+                                Welcome to ArabDreams
+                            </h3>
+                            <p>Your premier partner for business success in Saudi Arabia. We specialize in helping international and local businesses establish with <strong>100% foreign ownership</strong> options.</p>
+                        </div>
+                        <div class="bubble">
+                            How can I assist you with your Saudi Arabian business goals today?
+                        </div>
+                        <div class="chips">
+                            <div class="chip" onclick="send('What services do you offer?')">Our Services</div>
+                            <div class="chip" onclick="send('Business setup process?')">Setup Process</div>
+                            <div class="chip" onclick="send('Tell me about visas')">Visa Services</div>
+                            <div class="chip" onclick="send('Why Saudi Arabia?')">Why KSA</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="msg user">
+                    <div class="bubble">
+                        I'm interested in setting up a business in Saudi Arabia.
+                    </div>
+                </div>
+                <div class="msg bot">
+                    <div class="bubble">
+                        Excellent choice! Saudi Arabia offers tremendous opportunities for business growth. Our team can guide you through the entire setup process, from company registration to licensing and visa processing.
+                    </div>
+                </div>
+                <div class="msg user">
+                    <div class="bubble">
+                        What are the main requirements?
+                    </div>
+                </div>
+                <div class="msg bot">
+                    <div class="typing">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <div class="input-box">
+                <input 
+                    type="text" 
+                    id="input" 
+                    placeholder="Type your message here..."
+                    maxlength="500"
+                >
+                <button class="send-btn" id="btn">
+                    <i class="fas fa-arrow-up"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple chat functionality for demonstration
+        function send(message) {
+            const messagesDiv = document.getElementById('msgs');
+            
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'msg user';
+            userMsg.innerHTML = `<div class="bubble">${message}</div>`;
+            messagesDiv.appendChild(userMsg);
+            
+            // Simulate bot response after delay
+            setTimeout(() => {
+                // Remove typing indicator if exists
+                const typingIndicator = document.querySelector('.typing');
+                if (typingIndicator) {
+                    typingIndicator.parentElement.remove();
+                }
+                
+                // Add bot response
+                const botMsg = document.createElement('div');
+                botMsg.className = 'msg bot';
+                botMsg.innerHTML = `<div class="bubble">Thank you for your interest in "${message}". Our team will get back to you with detailed information shortly.</div>`;
+                messagesDiv.appendChild(botMsg);
+                
+                // Scroll to bottom
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }, 1500);
+            
+            // Add typing indicator
+            const typingMsg = document.createElement('div');
+            typingMsg.className = 'msg bot';
+            typingMsg.innerHTML = `
+                <div class="typing">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            `;
+            messagesDiv.appendChild(typingMsg);
+            
+            // Scroll to bottom
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        
+        // Add event listener to send button
+        document.getElementById('btn').addEventListener('click', function() {
+            const input = document.getElementById('input');
+            if (input.value.trim() !== '') {
+                send(input.value);
+                input.value = '';
+            }
+        });
+        
+        // Add event listener for Enter key
+        document.getElementById('input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('btn').click();
+            }
+        });
+        
+        // Add event listeners to chips
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                send(this.textContent);
+            });
+        });
+        
+        // Scroll to bottom on page load
+        window.addEventListener('load', function() {
+            const messagesDiv = document.getElementById('msgs');
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        });
+    </script>
+</body>
+</html>
