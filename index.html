@@ -378,25 +378,52 @@
             background: var(--gold-dark);
         }
 
-        @media (max-width: 500px) {
-            .container {
-                height: 90vh;
-                max-width: 100%;
-                border-radius: 0;
-            }
-            body {
-                padding: 0;
-            }
-            .messages {
-                padding: 16px;
-                margin-bottom: 0%;
-                position:fixed;
-            }
-            .header {
-                margin-top: 0%;
-                position:fixed;
-            }
-        }
+       @media (max-width: 500px) {
+    .container {
+        height: 100vh;
+        max-width: 100%;
+        border-radius: 0;
+        width: 100%;
+    }
+    
+    body {
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+    
+    .messages {
+        padding: 16px;
+        margin-bottom: 0;
+        position: relative;
+        height: calc(100vh - 120px); /* Adjust based on header and input height */
+        overflow-y: auto;
+        margin-top: 60px; /* Space for fixed header */
+    }
+    
+    .header {
+        margin-top: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 1000;
+        background: white; /* Or your preferred background color */
+    }
+    
+    /* Add this for the input area if you have one */
+    .input-area {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background: white;
+        padding: 10px;
+        border-top: 1px solid #ccc;
+    }
+}
     </style>
 </head>
 <body>
